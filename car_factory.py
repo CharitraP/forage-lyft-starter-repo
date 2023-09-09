@@ -4,6 +4,7 @@ from car import Car
 from engine.capulet_engine import CapuletEngine
 from engine.sternman_engine import SternmanEngine
 from engine.willoughby_engine import WilloughbyEngine
+from datetime import datetime
 
 
 class CarFactory:
@@ -41,3 +42,18 @@ class CarFactory:
         battery = NubbinBattery(current_date, last_service_date)
         car = Car(engine, battery)
         return car
+
+def main():
+    current_date = datetime.today().date()
+    last_service_date = current_date.replace(year=current_date.year - 3)
+    current_mileage = 0
+    last_service_mileage = 0
+
+    car=CarFactory.create_calliope(current_date, last_service_date, current_mileage, last_service_mileage)
+    print("Car Information:")
+    print("Does Engine require Service?", car.engine.needs_service())
+    print("Does Battery require Service?", car.battery.needs_service())
+
+
+if __name__=="__main__":
+    main()
